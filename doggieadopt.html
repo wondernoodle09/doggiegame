@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    </script>
+
+    <style type="text/css">
+
+    @font-face {
+  font-family: puppybellies;
+  src: url(/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/fonts/Puppybellies.ttf);
+}
+
+    body {
+        background-color: #ede3c7;
+        text-align: center;
+        margin: auto;
+        height: 100%;
+        width: 1440px;
+        background-image: url("/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/scenes/Pet_Shop.png");
+        background-size: cover;
+
+    }
+
+    * {
+        font-family: puppybellies;
+    }
+
+    h1 {
+        font-size: 72px;
+        text-shadow: -3px -3px 0 #FFFFFF, 3px -3px 0 #FFFFFF, -3px 3px 0 #FFFFFF, 3px 3px 0 #FFFFFF;
+        margin: 3px;
+    }
+
+    #date {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
+
+    #gosleep {
+        position: absolute;
+        right: 20px;
+        top: 60px;
+    }
+
+    #dogslide {
+        position: absolute;
+        top: 500px;
+        left: 200px;
+        width: 1100px;
+        height: 250px;
+        z-index: 5px;
+        background-color: blue;
+        overflow: auto;
+        white-space: nowrap;
+    }
+
+    #frame {
+        margin: 0 auto;
+        background-color: white;
+        opacity: 0.5;
+        z-index: -1px;
+        width: 100%;
+        height: 650px;
+    }
+
+    #leftleftdog {
+        width: 15%;
+        position: absolute;
+        left: -200px;
+        top: 250px;
+    }
+
+    #leftdog {
+        width: 15%;
+        position: absolute;
+        left: 200px;
+        top: 250px;
+    }
+
+    #middog {
+        width: 20%;
+        position: absolute;
+        left: 600px;
+        top: 250px;
+    }
+
+    #middog:hover {
+    -webkit-filter: drop-shadow(15px 15px 0 white)
+        drop-shadow(-15px 15px 0 white)
+        drop-shadow(15px -15px 0 white)
+        drop-shadow(-15px -15px 0 white);
+
+    filter: drop-shadow(15px 15px 0 white)
+        drop-shadow(-15px 15px 0 white)
+        drop-shadow(15px -15px 0 white)
+        drop-shadow(-15px -15px 0 white);
+    }
+
+    #rightdog {
+        width: 15%;
+        position: absolute;
+        left: 1000px;
+        top: 250px;
+    }
+
+    #rightrightdog {
+        width: 15%;
+        position: absolute;
+        left: 1400px;
+        top: 250px;
+    }
+
+    #leftarrow {
+        width: 200px;
+        left: 200px;
+        bottom: 50px;
+        position: absolute;
+
+    }
+
+    #rightarrow {
+        width: 200px;
+        left: 1000px;
+        bottom: 50px;
+        position: absolute;
+    }
+
+    #dogname {
+        position: absolute;
+        font-size: 72px;
+        text-shadow: -3px -3px 0 #FFFFFF, 3px -3px 0 #FFFFFF, -3px 3px 0 #FFFFFF, 3px 3px 0 #FFFFFF;
+        z-index: 6;
+        margin: 3px;
+        left: 450px;
+        bottom: 50px;
+        width: 500px;
+
+    }
+
+    #adopt {
+        display: inline-block;
+        
+      padding: 15px 25px;
+      font-size: 60px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      color: #fff;
+      background-color: skyblue;
+      border: 5px solid black;
+      border-radius: 15px;
+      box-shadow: 0 9px #999;
+      position: absolute;
+      right: 30px;
+      bottom: 90px;
+    }
+
+    #adopt:hover {background-color: orange;}
+
+    #adopt:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    } 
+
+    .pointer {
+        cursor: pointer;
+    }  
+
+
+
+
+
+
+
+
+    </style>
+
+</head>
+
+
+
+<body>
+    
+    <h1>Adopt a Dog</h1>
+    <div id="dogname">
+    </div>
+    <div id="frame">
+    </div>
+    <button id="adopt" onclick="senddog()">Adopt</button>
+            <img id="leftleftdog">
+            <img id="leftdog">
+            <img id="middog">
+            <img id="rightdog">
+            <img id="rightrightdog">
+            
+    <div>
+        <img id="leftarrow" class="pointer" src="/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/left_arrow.png">
+
+        <img id="rightarrow" class="pointer" src="/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/right_arrow.png">
+    </div>
+    <p id="date"></p>
+    <button id = "gosleep" onclick="advanceDay();">Advance Day</button>
+    <div id="hidden-resizer" style="visibility: hidden"></div>
+    
+        
+
+<script>
+
+    //calendar
+
+    var date = new Date("Jul 1 2021")
+    var datenum = date.getDate();
+    const weekday = new Array(7);
+        weekday[0] = "Sunday";
+        weekday[1] = "Monday";
+        weekday[2] = "Tuesday";
+        weekday[3] = "Wednesday";
+        weekday[4] = "Thursday";
+        weekday[5] = "Friday";
+        weekday[6] = "Saturday";
+
+    var weekdaynum = date.getDay()
+    var day = weekday[weekdaynum];
+
+    document.getElementById("date").innerHTML = "Today is " + day + ", " + "July " + datenum
+
+    function advanceDay() {
+        if (weekdaynum < 6) {
+            weekdaynum = 0
+
+        } else {
+            day = day + 1
+        }
+        date.setDate(date.getDate() + 1);
+        datenum = datenum + 1
+        day = weekday[date.getDay()]
+        document.getElementById("date").innerHTML = day + ", " + "July " + datenum
+    }
+
+    //dogs
+
+    const dogs = ["Gizmo", "Doge", "Egg Dog", "Annoying Dog From Undertale", "Awkward Chihuahua"];
+
+    startingDog();
+
+    function startingDog() {
+        document.getElementById("leftleftdog").src = "/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/" + dogs[0] + ".png"
+        document.getElementById("leftdog").src = "/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/" + dogs[1] + ".png"
+        document.getElementById("middog").src = "/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/" + dogs[2] + ".png"
+        document.getElementById("rightdog").src = "/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/" + dogs[3] + ".png"
+        document.getElementById("rightrightdog").src = "/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/" + dogs[4] + ".png"
+        document.getElementById("dogname").innerHTML = dogs[2]
+    }
+
+    document.getElementById("leftarrow").addEventListener("click", rotateLeft);
+    document.getElementById("rightarrow").addEventListener("click", rotateRight);
+
+    var id = null;
+
+    function rotateLeft() {
+        setTimeout(function(){
+        var first = dogs[4]
+        dogs.unshift(dogs.pop());
+        startingDog();
+
+    }, 1000);
+    }
+
+    function rotateRight() {
+        setTimeout(function(){var first = dogs[0]
+        dogs.push(dogs.shift());
+        startingDog();
+    }, 1000);
+    }
+
+    $("#leftarrow").click(function(){
+    $("#middog").animate({left: '+=400px', width:"15%"}, 1000, function () { $(this).removeAttr('style'); });
+    });
+
+    $("#leftarrow").click(function(){
+    $("#leftdog").animate({left: '+=400px', width:"20%"}, 1000, function () { $(this).removeAttr('style'); });
+    });
+
+    $("#leftarrow").click(function(){
+    $("#rightdog").animate({left: '+=400px'}, 1000, function () { $(this).removeAttr('style'); });
+    });
+
+    $("#leftarrow").click(function(){
+    $("#leftleftdog").animate({left: '+=400px'}, 1000, function () { $(this).removeAttr('style'); });
+    });
+
+    $("#leftarrow").click(function(){
+    $("#rightrightdog").animate({left: '+=400px'}, 1000, function () { $(this).removeAttr('style'); });
+    });
+
+    $("#rightarrow").click(function(){
+    $("#leftleftdog").animate({left: '-=400px'}, 1000, function () { $(this).removeAttr('style'); });
+    });
+
+    $("#rightarrow").click(function(){
+    $("#leftdog").animate({left: '-=400px'}, 1000, function () { $(this).removeAttr('style'); });
+    });
+
+    $("#rightarrow").click(function(){
+    $("#middog").animate({left: '-=400px', width:"15%"}, 1000, function () { $(this).removeAttr('style'); });
+    });
+
+    $("#rightarrow").click(function(){
+    $("#rightdog").animate({left: '-=400px', width:"20%"}, 1000, function () { $(this).removeAttr('style'); });
+    });
+
+    $("#rightarrow").click(function(){
+    $("#rightrightdog").animate({left: '-=400px'}, 1000, function () { $(this).removeAttr('style'); });
+    });
+
+    function senddog() {
+        localStorage.setItem("chosendog", dogs[2])
+        window.location.href = "doggiehome.html";
+    }
+
+
+
+
+
+
+
+    </script>
+
+</body>
+
+</html>
+
+
+    
+
+
+

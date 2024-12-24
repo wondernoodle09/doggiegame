@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    </script>
+
+    <style type="text/css">
+
+    @font-face {
+  font-family: puppybellies;
+  src: url(/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/fonts/Puppybellies.ttf);
+}
+
+    body {
+        background-color: #ede3c7;
+        text-align: center;
+    }
+
+    * {
+     font-family: puppybellies;
+    }
+
+    h1 {
+        font-size: 32px;
+        text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF;
+        margin: 10px;
+
+    }
+
+    p {
+        margin: 5px;
+    }
+
+    #frame {
+        background-image:
+        background-repeat: no-repeat;
+        margin: 0 auto;
+        width: 800px;
+        height: 600px;
+        position: fixed;
+        left: 0; 
+        right: 0; 
+        top: 0px;
+        margin-left: auto; 
+        margin-right: auto;
+        border: 10px solid beige;
+    }
+
+    #textbox {
+        background-image: url("/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/polkadotwallpaper.png");
+        margin: 0 auto;
+        width: 800px;
+        height: 135px;
+        position: fixed;
+        left: 0;
+        right: 0;
+        margin-left: auto;
+        margin-right: auto;
+        border: 10px solid beige;
+        z-index: -2;
+        bottom: 0px;
+        overflow: scroll;
+    }
+
+    #text {
+        font-size: 36px;
+        text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF;
+        z-index: 10;
+        text-align: left;
+        margin: 10px
+
+    }
+    .coloredtext {
+        text-shadow: -1px -1px 0 black, 1px -1px 0 black, -1px 1px 0 black, 1px 1px 0 black;
+        color: #6b9ab5;
+    }
+
+    #date {
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
+
+    #pet {
+        position: absolute;
+        right: 700px;
+        bottom: 300px;
+        width: 100px;
+    }
+
+    #downarrow {
+        z-index: 5;
+        position: absolute;
+        bottom: 145px;
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto; 
+    }
+
+    #downarrow:hover + #downtext {
+        display: block;
+    }
+
+    #rightarrow {
+        z-index: 5;
+        position: absolute;
+        bottom: 400px;
+        right: 310px;
+    }
+
+    #rightarrow:hover + #righttext {
+        display: block;
+    }
+
+    #uparrow {
+        z-index: 5;
+        position: absolute;
+        left: 0; 
+        right: 0;
+        top: 0px; 
+        margin-left: auto; 
+        margin-right: auto;
+        display: none;
+
+    }
+
+    #uparrow:hover + #uptext {
+        display: block;
+    }
+
+    #leftarrow {
+        z-index: 5;
+        position: absolute;
+        bottom: 400px;
+        left: 310px;
+        display: none;
+
+    }
+
+    #leftarrow:hover + #lefttext {
+        display: block;
+    }
+
+    #downtext {
+        z-index: 7;
+        position: absolute;
+        bottom: 205px;
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto;
+        font-size:  24px;
+        text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF;
+        display: none;
+    }
+
+    #righttext {
+        z-index: 7;
+        position: absolute;
+        bottom: 410px;
+        right: 390px;
+        font-size:  24px;
+        text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF;
+        display: none;
+
+    }
+
+    #uptext {
+        z-index: 7;
+        position: absolute;
+        top: 65px;
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto;
+        font-size:  24px;
+        text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF;
+        display: none;
+    }
+
+    #lefttext {
+        z-index: 5;
+        position: absolute;
+        bottom: 410px;
+        left: 390px;
+        font-size:  24px;
+        text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF;
+        display: none;
+    }
+
+    #petbed {
+        width: 150px;
+        position: absolute;
+        right: 350px;
+        top: 430px;
+    }
+
+    #bedroomstuff {
+        display: none;
+    }
+
+    #petbedtitle {
+        width: 150px;
+        position: absolute;
+        right: 350px;
+        top: 450px;
+        display: none;
+    }
+
+    #petbed:hover + #petbedtitle {
+        display: block;
+        pointer-events:none;
+    }
+
+    #crumbs {
+        width: 75px;
+        top: 350px;
+        right: 450px;
+        position: absolute;
+    }
+
+    #crumbstitle {
+        width: 75px;
+        top: 320px;
+        right: 450px;
+        position: absolute;
+        display: none;
+    }
+
+    #crumbs:hover + #crumbstitle {
+        display: block;
+        pointer-events:none;
+    }
+
+    #backyardstuff {
+        display: none;
+    }
+
+    #dirtpile {
+        width: 75px;
+        left: 600px;
+        bottom: 250px;
+        z-index: 5;
+        position: absolute;
+    }
+
+    #dirtpiletitle {
+        width: 75px;
+        left: 600px;
+        bottom: 250px;
+        position: absolute;
+        display: none;
+    }
+
+    #dirtpile:hover + #dirtpiletitle {
+        display: block;
+        pointer-events: none;
+    }
+
+    #woof {
+        width: 100px;
+        left: 800px;
+        bottom: 475px;
+        position: absolute;
+    }
+
+    #wooftitle {
+        width: 100px;
+        left: 800px;
+        bottom: 475px;
+        position: absolute;
+        display: none;
+    }
+
+    #woof:hover + #wooftitle {
+        display: block;
+        pointer-events: none;
+    }
+
+    #bathroomstuff {
+        display: none;
+    }
+
+    #tongue {
+        width: 100px;
+        left: 800px;
+        bottom: 600px;
+        position: absolute;
+
+    }
+
+    #tonguetitle {
+        width: 100px;
+        left: 800px;
+        bottom: 600px;
+        position: absolute;
+        display: none;
+    }
+
+    #tongue:hover + #tonguetitle {
+        display: block;
+        pointer-events: none;
+    }
+
+    #outsideofhousestuff {
+        display: none;
+    }
+
+    #newspaper {
+        width: 100px;
+        right: 550px;
+        bottom: 200px;
+        position: absolute;
+    }
+
+    #newspapertitle {
+        width: 100px;
+        right: 550px;
+        bottom: 200px;
+        position: absolute;
+        display: none;
+    }
+
+    #newspaper:hover + #newspapertitle {
+        display: block;
+        pointer-events: none;
+    }
+
+    #hallwaystuff {
+        display: none;
+    }
+
+    #spider {
+        width: 50px;
+        bottom: 175px;
+        left: 600px;
+        position: absolute;
+    }
+
+    #spidertitle {
+        width: 50px;
+        bottom: 175px;
+        left: 600px;
+        position: absolute;
+        display: none;
+    }
+
+    #spider:hover + #spidertitle {
+        display: block;
+        pointer-events: none;
+    }
+
+    #livingroomstuff {
+        display: none;
+    }
+
+    #paw {
+        width: 50px;
+        bottom: 320px;
+        left: 550px;
+        position: absolute;
+    }
+
+    #pawtitle {
+        width: 50px;
+        bottom: 320px;
+        left: 550px;
+        position: absolute;
+        display: none;
+    }
+
+    #paw:hover + #pawtitle {
+        display: block;
+        pointer-events: none;
+    }
+
+    #sun {
+        width: 50px;
+        bottom: 350px;
+        right: 450px;
+        position: absolute;
+    }
+
+    #suntitle {
+        width: 50px;
+        bottom: 350px;
+        right: 450px;
+        position: absolute;
+        display: none;
+    }
+
+    #sun:hover + #suntitle {
+        display: block;
+        pointer-events: none;
+    }
+
+    #nextbutton {
+        display: none;
+        cursor: pointer;
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        width: 50px;
+
+    }
+
+    #yesbutton {
+        display: none;
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        margin-top: 15px;
+    }
+
+    #nobutton {
+        display: none;
+        position: absolute;
+        bottom: 0px;
+        right: 0px;
+        margin-bottom: 20px;
+    }
+
+    #item {
+        width: 300px;
+        top: 75px;
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto;
+        display: none;
+        position: absolute;
+
+    }
+
+    #itembox {
+        width: 300px;
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto;
+        top: 100px;
+        position: absolute;
+        z-index: 15;
+
+    }
+
+    .itemanimation {
+        animation: pouchItem 1s ease forwards;
+    }
+
+    @keyframes pouchItem {
+        0% {
+            transform: translate(0,0) scale(1.0);
+        }
+
+        99% {
+            opacity: 100%;
+        }
+
+        100% {
+            transform: translate(575px, 310px) scale(0.35);
+            opacity: 0%;
+        }
+    }
+
+    #datebox {
+        background-color: #6b9ab5;
+        margin: 0 auto;
+        width: 300px;
+        height: 50px;
+        position: fixed;
+        right: 0px;
+        border: 10px solid beige;
+        z-index: -2;
+        top: 0px;
+
+    }
+
+    #date {
+        font-size: 32px;
+        text-align: center;
+        margin: -10px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF;
+    }
+
+    #calendar {
+        font-size: 31.5px;
+        cursor: pointer;
+    }
+
+     #calendarbox {
+        background-color: beige;
+        margin: 0 auto;
+        width: 300px;
+        height: 250px;
+        position: fixed;
+        right: 0px;
+        border: 10px solid beige;
+        z-index: -2;
+        top: 60px;
+
+    }
+
+    table, th, td {
+    border: 1px solid black;
+    }
+
+    th {
+    background-color: #6b9ab5;
+    }
+
+    td:hover {background-color: #f29e55;}
+
+    table td#currentdate {border:inset 4px #bf4d43; background-color:#bf4d43;}
+
+    #itemsbox {
+        background-color: #6b9ab5;
+        width: 300px;
+        height: 415px;
+        position: fixed;
+        right: 0px;
+        border: 10px solid beige;
+        z-index: -2;
+        bottom: 0px;
+
+    }
+
+    #itemsboxbox {
+        background-image: url("/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/polkadotwallpaper.png");
+        width: 300px;
+        height: 355px;
+        position: fixed;
+        right: 0px;
+        border: 10px solid beige;
+        z-index: -1;
+        bottom: 0px;
+        overflow: scroll;
+    }
+
+    .itemdisplay {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        -webkit-filter: drop-shadow(1px 1px 0 white)
+        drop-shadow(-1px 1px 0 white)
+        drop-shadow(1px -1px 0 white)
+        drop-shadow(-1px -1px 0 white);
+
+        filter: drop-shadow(1px 1px 0 white)
+        drop-shadow(-1px 1px 0 white)
+        drop-shadow(1px -1px 0 white)
+        drop-shadow(-1px -1px 0 white);
+    }
+
+    .itemdisplay:hover {
+        animation: scaleup .5s;
+        transform-origin: 1 1;
+        animation-fill-mode: forwards;
+        -webkit-filter: drop-shadow(1px 1px 0 cyan)
+        drop-shadow(-1px 1px 0 cyan)
+        drop-shadow(1px -1px 0 cyan)
+        drop-shadow(-1px -1px 0 cyan);
+
+        filter: drop-shadow(1px 1px 0 cyan)
+        drop-shadow(-1px 1px 0 cyan)
+        drop-shadow(1px -1px 0 cyan)
+        drop-shadow(-1px -1px 0 cyan);
+    }
+
+    .itemdisplay:hover + #itemdesc {
+        display: block;
+    }
+
+
+    #itemdesc {
+        background-color: beige;
+        width: 280px;
+        height: 100px;
+        position: absolute;
+        border: 2px dashed #b07a38;
+        z-index: -1;
+        bottom: 0px;
+        left: 0; 
+        right: 0; 
+        margin-left: auto; 
+        margin-right: auto;
+        margin-bottom: 8px;
+        overflow: scroll;
+        display: none;
+    }
+
+    @keyframes scaleup {
+        0% {
+            transform: scale(1.0);
+        }
+        100% {
+            transform: scale(1.5);
+        }
+    }
+
+
+    .arrow {
+        cursor: pointer;
+    }
+
+    .arrow:hover {
+        transform: scale(1.2);
+    }
+
+    .keyitem {
+        cursor: pointer;
+    }
+
+    .keyitem:hover {
+        transform: scale(1.2);
+        -webkit-filter: drop-shadow(3px 3px 0 #34ebe1)
+        drop-shadow(-3px 3px 0 #34ebe1)
+        drop-shadow(3px -3px 0 #34ebe1)
+        drop-shadow(-3px -3px 0 #34ebe1);
+
+    filter: drop-shadow(3px 3px 0 #34ebe1)
+        drop-shadow(-3px 3px 0 #34ebe1)
+        drop-shadow(3px -3px 0 #34ebe1)
+        drop-shadow(-3px -3px 0 #34ebe1);
+    }
+
+    .keyitemtext {
+        font-size:  24px;
+        text-shadow: -1px -1px 0 #FFFFFF, 1px -1px 0 #FFFFFF, -1px 1px 0 #FFFFFF, 1px 1px 0 #FFFFFF;
+        z-index: 10;
+    }
+
+    #statsbox {
+        background-image: url("/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/polkadotwallpaper.png");
+        margin: 0 auto;
+        width: 300px;
+        height: 744px;
+        position: fixed;
+        left: 0px;
+        border: 10px solid beige;
+        z-index: -2;
+        top: 0px;
+
+    }
+
+    #realstatbox {
+        background-image: url("/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/polkadotwallpaper.png");
+        margin: 0 auto;
+        width: 300px;
+        height: 685px;
+        position: fixed;
+        left: 0px;
+        border: 10px solid beige;
+        z-index: -3;
+        bottom: 0px;
+
+    }
+
+    #stattitle {
+        background-color: #6b9ab5;
+        margin: 0 auto;
+        width: 300px;
+        height: 50px;
+        position: fixed;
+        left: 0px;
+        border: 10px solid beige;
+        z-index: -2;
+        top: 0px;
+
+    }
+
+    .progressbar {
+        border: 2px solid beige;
+        background-color: #aba79f;
+        border-radius: 5px;
+        width: 280px;
+        min-height: 20px;
+        height: auto;
+        margin: 5px;
+        margin-top: 20px;
+    }
+
+    #fullnessbar {
+        height: 20px;
+        position: absolute;
+        background-color: #f29e55;
+        z-index: 1;
+        width: 280px;
+
+    }
+
+    #energybar {
+        background-color: #65a14d;
+        z-index: 1;
+        height: 20px;
+        position: absolute;
+        width: 280px;
+    }
+
+    #groomingbar {
+        background-color: #4164a6;
+        z-index: 1;
+        height: 20px;
+        position: absolute;
+        width: 280px;
+    }
+
+    #happinessbar {
+        background-color: #ffd900;
+        z-index: 1;
+        height: 20px;
+        position: absolute;
+        width: 280px;
+    }
+
+    #destrestbar {
+        background-color: #bf4d43;
+        z-index: 1;
+        height: 20px;
+        position: absolute;
+        width: 280px;
+    }
+
+    #socialbar {
+        background-color: #9a5eab;
+        z-index: 1;
+        height: 20px;
+        position: absolute;
+        width: 280px;
+    }
+
+    .progressbartitle {
+        z-index: 10;
+        position: relative;
+        text-align: left;
+        margin: 2px;
+        margin-left: 3px;
+
+    }
+
+    .button {    
+      padding: 5px 5px;
+      font-size: 18px;
+      cursor: pointer;
+      text-align: center;
+      color: beige;
+      background-color: #6b9ab5;
+      border: 5px solid beige;
+      border-radius: 10px;
+      box-shadow: 0 9px #999;
+      margin: 10px;
+    }
+
+    .button:hover {background-color: orange;}
+
+    .button:active {
+    background-color: #3e8e41;
+    box-shadow: 0 5px #666;
+    transform: translateY(4px);
+    } 
+
+    #expoint {
+        width: 50px;
+        position: relative;
+        display: none;
+        z-index: 5;
+    }
+
+    #loadingscreen {
+        display: none;
+    }
+
+
+
+    </style>
+
+</head>
+
+
+
+<body>
+    <audio id="homenoise" src="/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/audio/doorlock.mp3"></audio>
+    <audio id="hovernoise" src="/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/audio/hover.wav"></audio>
+    <audio id="clicknoise" src="/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/audio/click.mp3"></audio>
+    <div id="frame">
+        <img id="loadingscreen" src="/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/dogloading.gif">
+    </div>
+
+    <div id="textbox">
+        <p id="text"></p>
+        <img id="nextbutton" class="arrow" src="/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/right_arrow.png">
+        <button id="yesbutton" class="button">Yes</button>
+        <button id="nobutton" class="button">No</button>
+    </div>
+    <div id="itembox">
+        <img id="item">
+    </div>
+    <div id="datebox">
+        <p id="date"></p>
+    </div>
+    <div id="calendarbox">
+        <div id="calendar">
+        </div>
+    </div>
+
+    <div id="itemsbox">
+        <h1 id="itemdesctitle">Items</h1>
+        <div id="itemsboxbox">
+        </div>
+        <div id="itemdesc">
+            <p id="itemdescwords"></p>
+        </div>
+    </div>
+
+    <div id="statsbox">
+        <div id="stattitle">
+                <h1>Stats</h1>
+            </div>
+            <div id="realstatbox">
+                <div class="progressbar">
+                    <div id="fullnessbar">
+                    </div>
+                    <p class="progressbartitle">fullness</p>
+                </div>
+                <div class="progressbar">
+                    <div id="energybar">
+                    </div>
+                    <p class="progressbartitle">energy</p>
+                </div>
+                <div class="progressbar">
+                    <div id="groomingbar">
+                    </div>
+                    <p class="progressbartitle">grooming</p>
+                </div>
+                <div class="progressbar">
+                    <div id="happinessbar">
+                    </div>
+                    <p class="progressbartitle">happiness</p>
+                </div>
+                <div class="progressbar">
+                    <div id="destrestbar">
+                    </div>
+                    <p class="progressbartitle">destruction resistance</p>
+                </div>
+                <div class="progressbar">
+                    <div id="socialbar">
+                    </div>
+                    <p class="progressbartitle">social</p>
+                </div>
+        </div>
+    </div>
+
+
+   
+    <img id="pet">
+    <img id="expoint" src="/Users/annikachavez/Library/Mobile Documents/com~apple~CloudDocs/code/doggiegame/assets/images/exclamation.gif">
+    
+
+    
+
+
+        
+
+<script src="independent.js">
+    </script>
+
+</body>
+
+</html>
+
+
+    
+
+
+
